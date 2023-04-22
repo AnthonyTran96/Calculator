@@ -5,6 +5,13 @@
     --primary: #fe2c55;
     --black: #000;
     --white: #fff;
+    --background-color: #858694;
+    --medium-width: 600px;
+    --small-width: 500px;
+    --extra-small-width: 400px;
+    --medium-height: 600px;
+    --small-height: 500px;
+    --extra-small-height: 400px;
 }
 
 * {
@@ -22,4 +29,5 @@ body {
     font-size: 1.6rem;
     line-height: 1.5;
     text-rendering: optimizeSpeed;
+    background-color: var(--background-color);
 }
