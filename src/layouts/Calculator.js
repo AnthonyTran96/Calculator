@@ -2,12 +2,21 @@ import classNames from 'classnames/bind';
 import styles from './Calculator.module.scss';
 import Display from '~/components/Display';
 import Button from '~/components/Button';
+import GitHubForkRibbon from 'react-github-fork-ribbon';
 
 const cx = classNames.bind(styles);
 
 function Calculator() {
     return (
         <div className={cx('wrapper')}>
+            <GitHubForkRibbon
+                href="https://github.com/AnthonyTran96/Calculator.git"
+                color="black"
+                target="_blank"
+                position="left"
+            >
+                Fork me on GitHub
+            </GitHubForkRibbon>
             <div className={cx('display-section')}>
                 <Display displayData="0" />
             </div>

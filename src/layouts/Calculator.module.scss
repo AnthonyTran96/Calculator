@@ -1,21 +1,22 @@
 .wrapper {
     display: flex;
     flex-direction: column;
-    width: 100%;
-}
-
-.display-section {
+    width: 100vw;
+    height: 100vh;
 }
 
 .button-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
     flex: 1;
 }
 
 .row {
     display: flex;
-    height: 20%;
-    margin-bottom: 1px;
-}
-
-.large-btn {
+    gap: 1px;
+    flex: 1;
+    .large-btn {
+        flex-basis: calc(25% + 0.5px);
+    }
 }
