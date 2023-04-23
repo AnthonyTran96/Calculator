@@ -1,12 +1,20 @@
+import { useReducer } from 'react';
 import classNames from 'classnames/bind';
+import GitHubForkRibbon from 'react-github-fork-ribbon';
 import styles from './Calculator.module.scss';
 import Display from '~/components/Display';
 import Button from '~/components/Button';
-import GitHubForkRibbon from 'react-github-fork-ribbon';
+import clickBtn from './clickBtn';
+import reducer, { initState } from './reducer';
 
 const cx = classNames.bind(styles);
 
 function Calculator() {
+    const [store, dispatch] = useReducer(reducer, initState);
+    const handleClickBtn = (event) => {
+        const data = event.target.innerText;
+        clickBtn(data, store, dispatch);
+    };
     return (
         <div className={cx('wrapper')}>
             <GitHubForkRibbon
@@ -18,9 +26,10 @@ function Calculator() {
                 Fork me on GitHub
             </GitHubForkRibbon>
             <div className={cx('display-section')}>
-                <Display displayData="0" />
+                {console.log(store)}
+                <Display displayData={store.display} />
             </div>
-            <div className={cx('button-section')}>
+            <div className={cx('button-section')} onClick={handleClickBtn}>
                 <div className={cx('row')}>
                     <Button>AC</Button>
                     <Button>+/-</Button>
@@ -31,7 +40,7 @@ function Calculator() {
                     <Button>7</Button>
                     <Button>8</Button>
                     <Button>9</Button>
-                    <Button orange>X</Button>
+                    <Button orange>x</Button>
                 </div>
                 <div className={cx('row')}>
                     <Button>4</Button>
