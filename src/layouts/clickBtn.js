@@ -28,7 +28,6 @@ const clickBtn = (data, store, dispatch) => {
                 throw new Error('Calculate Error!!');
         }
         setDisplay(result);
-        setMemo(result);
         setOperator(null);
         return result;
     };
@@ -37,18 +36,19 @@ const clickBtn = (data, store, dispatch) => {
         setOperator(null);
         setMemo(null);
     };
+
     if (!isNaN(data)) {
-        if ((!!operator && memo === null) || display === '0') {
+        if (display === '0') {
             setDisplay(data);
             return;
         }
-        if (operator == null && memo !== null) {
+        if (display === memo) {
             setDisplay(data);
-            setMemo(null);
             return;
         }
         setDisplay(display + data);
     }
+
     if (data === 'AC') {
         reset();
     }
@@ -65,12 +65,14 @@ const clickBtn = (data, store, dispatch) => {
         setDisplay(newData);
     }
     if (['+', '-', 'x', '÷'].includes(data)) {
-        calculate();
+        let result = null;
+        if (display !== memo) result = calculate();
         setOperator(data);
-        setMemo(display);
+        result ? setMemo(result) : setMemo(display);
     }
     if (data === '=') {
-        calculate();
+        const result = calculate();
+        result ? setMemo(result) : setMemo(display);
     }
     if (data === '.') {
         if (operator === null && memo !== null) {
@@ -79,7 +81,7 @@ const clickBtn = (data, store, dispatch) => {
             return;
         }
         if (display.includes('.')) return;
-        if (display === '0') setDisplay('0.');
+        if (display === '0' || display === memo) setDisplay('0.');
         else setDisplay(display + data);
     }
 };
