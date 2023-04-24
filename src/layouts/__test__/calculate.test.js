@@ -218,6 +218,10 @@ describe('Test dot. Button', () => {
         _calculate(['1', '.', '2']);
         expect(store.display).toBe('1.2');
     });
+    test('1/+/3/=/3/.', () => {
+        _calculate(['1', '3', '=', '3', '.']);
+        expect(store.display).toBe('3.');
+    });
     test('1/2/x/3/4/(.)', () => {
         _calculate(['1', '2', 'x', '3', '4', '.']);
         expect(store.display).toBe('34.');

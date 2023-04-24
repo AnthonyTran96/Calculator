@@ -16,6 +16,7 @@ function calculate(data, store) {
 
     const math = () => {
         if (operator === null || memo === null) return;
+        if (operator === '%') return;
         const num1 = new Big(memo);
         const num2 = new Big(display);
         let result = null;
@@ -43,8 +44,10 @@ function calculate(data, store) {
     if (data === 'AC') reset();
 
     if (!isNaN(data)) {
-        if ((display === memo && display !== data) || display === '0') {
-            display = data;
+        if (display === memo || display === '-' + memo || display === '0') {
+            if (data === display) memo += '.0';
+            if (operator === '%') display += data;
+            else display = data;
             return {
                 display,
                 operator,
@@ -70,13 +73,14 @@ function calculate(data, store) {
     if (data === '+/-') {
         const number = new Big(display);
         const newData = number.mul(-1).toString();
+        if (display === memo) memo = newData;
         display = newData;
     }
 
     if (data === '.') {
-        if (operator === null && memo !== null) {
+        if (display === memo) {
             display = '0.';
-            memo = null;
+
             return {
                 display,
                 operator,
@@ -95,9 +99,12 @@ function calculate(data, store) {
 
     if (data === '%') {
         math();
-        const number = new Big(display);
-        const newData = number.div(100).toString();
-        display = newData;
+        if (display !== memo || operator === '%') {
+            const number = new Big(display);
+            const newData = number.div(100).toString();
+            display = newData;
+            memo = newData;
+        }
     }
     return {
         display,
