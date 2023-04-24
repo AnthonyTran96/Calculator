@@ -1,19 +1,23 @@
-import { useReducer } from 'react';
+import { useState } from 'react';
 import classNames from 'classnames/bind';
 import GitHubForkRibbon from 'react-github-fork-ribbon';
 import styles from './Calculator.module.scss';
 import Display from '~/components/Display';
 import Button from '~/components/Button';
-import clickBtn from './clickBtn';
-import reducer, { initState } from './reducer';
+import calculate from './calculate';
 
 const cx = classNames.bind(styles);
 
 function Calculator() {
-    const [store, dispatch] = useReducer(reducer, initState);
+    const [store, setStore] = useState({
+        display: '0',
+        operator: null,
+        memo: null,
+    });
     const handleClickBtn = (event) => {
         const data = event.target.innerText;
-        clickBtn(data, store, dispatch);
+        const newStore = calculate(data, store);
+        setStore(newStore);
     };
     return (
         <div className={cx('wrapper')}>
