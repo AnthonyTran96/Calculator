@@ -65,6 +65,10 @@ describe('Test Operator Buttons', () => {
         _calculate(['1', '2', 'x', '3', '4', '=', '5', '6']);
         expect(store.display).toBe('56');
     });
+    test('2/x/2/3/=', () => {
+        _calculate(['2', 'x', '2', '3', '=']);
+        expect(store.display).toBe('46');
+    });
     test('1/2/x/3/4/=/5/6/-', () => {
         _calculate(['1', '2', 'x', '3', '4', '=', '5', '6', '-']);
         expect(store.display).toBe('56');
